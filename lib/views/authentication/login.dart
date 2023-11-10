@@ -12,10 +12,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   String whoisLogin = 'patient'; 
-  TextEditingController _cvvController = TextEditingController();
-  TextEditingController _hospitalController = TextEditingController();
-  TextEditingController _patientController = TextEditingController();
-  TextEditingController _insurance_companyController = TextEditingController();
+  final TextEditingController _cvvController = TextEditingController();
+  final  TextEditingController _hospitalController = TextEditingController();
+  final TextEditingController _patientController = TextEditingController();
+  final  TextEditingController _insurance_companyController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
                         fit: BoxFit.cover)),
               ),
               Container(
-                margin: EdgeInsets.all(15.0),
+                margin: const EdgeInsets.all(15.0),
                 height: MediaQuery.of(context).size.height * 0.5,
                 child: Column(children: [
                   const Text(
@@ -45,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.bold,
                         fontSize: 30.0),
                   ),
-                  Gap(12),
+               const   Gap(12),
                   Row(
                     children: [
                       ElevatedButton(
@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                             style:
                                 TextStyle(color: Colors.white, fontSize: 17.0),
                           )),
-                      Gap(30.0),
+                     const Gap(30.0),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor:whoisLogin=='patient'?Colors.grey:
@@ -81,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: const Text('Patient',
                               style: TextStyle(
                                   color: Colors.white, fontSize: 17.0))),
-                      Gap(30.0),
+                     const Gap(30.0),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             backgroundColor:whoisLogin=='insurance'?Colors.grey:
@@ -99,36 +99,36 @@ class _LoginPageState extends State<LoginPage> {
                                   color: Colors.white, fontSize: 17.0)))
                     ],
                   ),
-                  Gap(22.0),
+                 const Gap(22.0),
                   TextFormField(
                     controller: whoisLogin=='patient'? _patientController: whoisLogin=='hospital'?_hospitalController: _insurance_companyController ,
                     decoration: InputDecoration(
                       labelText: whoisLogin=='patient'? 'Patient ID': whoisLogin=='hospital'?'Hospital ID': 'Insurance Company ID',
-                      labelStyle:TextStyle(color: Colors.black),
+                      labelStyle:const TextStyle(color: Colors.black),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(15.0)),
-                      fillColor: Color.fromARGB(255, 193, 129, 129),
+                      fillColor: const Color.fromARGB(255, 193, 129, 129),
                       focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
                       filled: true,
                     ),
                   ),
-                  Gap(25.0),
+                  const Gap(25.0),
                   TextFormField(
                     controller: _cvvController,
                     decoration: InputDecoration(
-                      labelStyle:TextStyle(color: Colors.black),
+                      labelStyle:const TextStyle(color: Colors.black),
                       labelText: 'Password',
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(15.0)),
                           focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(15.0)),
-                      fillColor: Color.fromARGB(255, 193, 129, 129),
+                      fillColor: const Color.fromARGB(255, 193, 129, 129),
                       filled: true,
                     ),
                   ),
                   const Gap(50.0),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -141,17 +141,20 @@ class _LoginPageState extends State<LoginPage> {
                           if(whoisLogin=='patient'){
                           Auth.instance.login(_patientController.text, _cvvController.text);
                           }
+                          else if( whoisLogin=='hospital'){
+                            Auth.instance.loginDoctor(_hospitalController.text, _cvvController.text);
+                          }
                         },
                         child: const Text('LOGIN',
                             style: TextStyle(
                                 color: Colors.white, fontSize: 18.0))),
                   ),
-                  Gap(15.0),
+                 const Gap(15.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('Forgot password? ', style: TextStyle(fontSize: 17.0),),
-                      TextButton(onPressed: (){}, child: Text('Get it on Email!', style: TextStyle(color:  const Color.fromARGB(255, 91, 30, 26), fontSize: 17.0 ),))
+                     const Text('Forgot password? ', style: TextStyle(fontSize: 17.0),),
+                      TextButton(onPressed: (){}, child: const Text('Get it on Email!', style: TextStyle(color:   Color.fromARGB(255, 91, 30, 26), fontSize: 17.0 ),))
                     ],
                   )
                 ]),

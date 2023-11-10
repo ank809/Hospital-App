@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hospital_app/controllers/patient_details.dart';
+import 'package:hospital_app/views/screens/constants.dart';
 
 class HomePage extends StatefulWidget {
   final bool isPatient;
@@ -17,40 +18,50 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //int _index=0;
+    final TextEditingController prescriptionController = TextEditingController();
+    late String doc;
+   void _showPrescriptionDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Add Prescription'),
+        content: TextField(
+          controller: prescriptionController,
+          decoration: const InputDecoration(
+            hintText: 'Enter prescription here',
+          ),
+          maxLines: 2,
+        ),
+        actions: [
+          TextButton(onPressed: (){
+            Navigator.pop(context);
+            prescriptionController.clear();
+          }, child: Text('Cancel')),
+          TextButton(
+             onPressed: () {
+    String prescriptionText = prescriptionController.text;
+    // Get the document ID from the snapshot
+    String documentId = doc;
+    Patient_Details.updatePrescription(documentId, prescriptionText);
+    prescriptionController.clear();
+    Navigator.of(context).pop();
+  },
+  child: const Text('Save'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          // onTap: (index){
-          //   setState(() {
-          //     _index=index;
-          //   });
-          // },
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home, size: 30.0),
-              label: 'Home',
-              //  backgroundColor: Colors.red
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.medication_liquid_outlined, size: 30.0),
-              label: 'Medicines',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.note_add_sharp, size: 30.0),
-              label: 'Reports',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.upload_file_outlined, size: 30.0),
-              label: 'Upload Reports',
-            ),
-          ],
-        ),
         body: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-         
           color: const Color.fromARGB(255, 225, 215, 215),
           child: StreamBuilder<QuerySnapshot>(
             stream: Patient_Details.fetchdata(widget.card_no, widget.cvv),
@@ -76,8 +87,8 @@ class _HomePageState extends State<HomePage> {
                 itemCount: document.length,
                 itemBuilder: (context, index) {
                   final item = document[index].data() as Map<String, dynamic>;
-                  final prescription = item['prescription'] as List<dynamic>;
-
+                  List<dynamic> prescription = item['prescription'];
+                  doc= document[index].id;
                   return Container(
                     height: MediaQuery.of(context).size.height * 0.929,
                     width: MediaQuery.of(context).size.width,
@@ -130,82 +141,14 @@ class _HomePageState extends State<HomePage> {
             },
           ),
         ),
-        //   floatingActionButton: SizedBox(
-        //   height: 50,
-        //   width: 130,
-        //   child: FloatingActionButton.extended(
-        //     backgroundColor:  Color.fromARGB(255, 212, 71, 61),
-        //     onPressed: () {
-        //     },
-        //     // label: const Row(
-        //     //   children: [
-        //     //     Icon(
-        //     //       Icons.upload_file,
-        //     //       size: 30,
-        //     //       color: Colors.black,
-        //     //     ),
-        //     //     Text(
-        //     //       'Upload',
-        //     //       style: TextStyle(
-        //     //           fontSize: 22.0,
-        //     //           color: Colors.black,
-        //     //           fontWeight: FontWeight.bold),
-        //     //     )
-        //     //   ],
-        //     // ),
-        //     label:Icon(Icons.add),
-        //   ),
-        // ),
         floatingActionButton: widget.isPatient
             ? null
             : FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  _showPrescriptionDialog(context);
+                },
                 backgroundColor: const Color.fromARGB(255, 173, 58, 50),
                 child: const Icon(Icons.add),
               ));
-  }
-
-  Widget buildDetailRow(IconData icon, String label, String value) {
-    return Row(
-      children: [
-        Icon(icon, color: const Color.fromARGB(255, 173, 58, 50)),
-        const SizedBox(width: 10.0),
-        Text('$label: ',
-            style: const TextStyle(
-                color: Color.fromARGB(255, 139, 45, 39),
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold)),
-        Flexible(
-          child: Text(
-            value,
-            style: const TextStyle(fontSize: 18.0),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget buildPrescriptionCard(int index, String prescription) {
-    return SizedBox(
-      //color: Colors.grey,
-      width: double.infinity,
-      child: Card(
-        color: Color.fromARGB(255, 139, 45, 39),
-        elevation: 2,
-        margin: const EdgeInsets.all(15.0),
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                prescription,
-                style: const TextStyle(fontSize: 19.0, color: Colors.white),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 }
