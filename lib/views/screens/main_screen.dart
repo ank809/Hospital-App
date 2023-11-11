@@ -24,9 +24,9 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     screens = [
       HomePage(card_no: widget.card_no, cvv: widget.cvv, isPatient: widget.isPatient),
-      const MedicinesPage(),
-     const ReportsPage(),
-      const UploadReports()
+      MedicinesPage(card_no: widget.card_no, isPatient: widget.isPatient),
+     ReportsPage(card_no: widget.card_no, cvv: widget.cvv, isPatient: widget.isPatient),
+      UploadDetails(cardno: widget.card_no, isPatient: widget.isPatient)
       // Add other screens as needed
     ];
   }

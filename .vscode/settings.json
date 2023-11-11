@@ -1,9 +1,18 @@
 {
     "cSpell.words": [
         "ARGB",
+        "cardno",
         "currentindex",
+        "deletedata",
+        "downloadurl",
+        "downurl",
         "fetchdata",
         "Firestore",
+        "getdata",
+        "imageurl",
+        "imgpath",
+        "newimgpath",
+        "storageref",
         "whois"
     ]
 }

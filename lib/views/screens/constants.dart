@@ -42,3 +42,5 @@ Widget buildDetailRow(IconData icon, String label, String value) {
       ),
     );
   }
+
+  
