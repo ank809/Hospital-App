@@ -20,7 +20,7 @@ class _ReportsPageState extends State<ReportsPage> {
       appBar:AppBar(title: Text('Your reports'), backgroundColor: const Color.fromARGB(255, 173, 58, 50),
       actions: [
         IconButton(onPressed: (){
-          Get.to(CompanyScreen(isPatient: widget.isPatient));
+          Get.to(CompanyScreen(isPatient: widget.isPatient, isDoctor: !widget.isPatient,));
         }, icon: Icon(Icons.info))
       ],),
       body: Container(

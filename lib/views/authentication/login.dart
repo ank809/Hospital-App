@@ -14,8 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _cvvController = TextEditingController();
   final TextEditingController _hospitalController = TextEditingController();
   final TextEditingController _patientController = TextEditingController();
-  final TextEditingController _insurance_companyController =
-      TextEditingController();
+  final TextEditingController _insurance_companyController =TextEditingController();
   final TextEditingController _departmentController = TextEditingController();
   final TextEditingController _doctorIdController = TextEditingController();
 
@@ -129,42 +128,46 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   Gap(25.0),
-                  whoisLogin == 'hospital'?
-                  Column(
-                    children: [
-                      TextFormField(
-                      controller: _departmentController,
-                          decoration: InputDecoration(
-                            labelText: 'Department Id',
-                            labelStyle: const TextStyle(color: Colors.black),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(15.0)),
-                            fillColor: const Color.fromARGB(255, 193, 129, 129),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15.0)),
-                            filled: true,
-                          ),
-                    ),
-                    Gap(25.0),
-                    TextFormField(
-                       controller: _doctorIdController,
-                          decoration: InputDecoration(
-                            labelText: 'Doctor Id',
-                            labelStyle: const TextStyle(color: Colors.black),
-                            enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(15.0)),
-                            fillColor: const Color.fromARGB(255, 193, 129, 129),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15.0)),
-                            filled: true,
-                          ),
-                    ),
-                    Gap(25.0),
-                    
-                    ],
-                  ):Container(),
+                  whoisLogin == 'hospital'
+                      ? Column(
+                          children: [
+                            TextFormField(
+                              controller: _departmentController,
+                              decoration: InputDecoration(
+                                labelText: 'Department Id',
+                                labelStyle:
+                                    const TextStyle(color: Colors.black),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(15.0)),
+                                fillColor:
+                                    const Color.fromARGB(255, 193, 129, 129),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15.0)),
+                                filled: true,
+                              ),
+                            ),
+                            Gap(25.0),
+                            TextFormField(
+                              controller: _doctorIdController,
+                              decoration: InputDecoration(
+                                labelText: 'Doctor Id',
+                                labelStyle:
+                                    const TextStyle(color: Colors.black),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(15.0)),
+                                fillColor:
+                                    const Color.fromARGB(255, 193, 129, 129),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(15.0)),
+                                filled: true,
+                              ),
+                            ),
+                            Gap(25.0),
+                          ],
+                        )
+                      : Container(),
                   TextFormField(
                     controller: _cvvController,
                     decoration: InputDecoration(
@@ -195,7 +198,14 @@ class _LoginPageState extends State<LoginPage> {
                                 _patientController.text, _cvvController.text);
                           } else if (whoisLogin == 'hospital') {
                             Auth.instance.loginDoctor(
-                                _hospitalController.text, _cvvController.text);
+                                _hospitalController.text,
+                                _departmentController.text,
+                                _doctorIdController.text,
+                                _cvvController.text);
+                          } else {
+                            Auth.instance.loginInsurance(
+                                _insurance_companyController.text,
+                                _cvvController.text);
                           }
                         },
                         child: const Text('LOGIN',

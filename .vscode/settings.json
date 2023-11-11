@@ -9,8 +9,10 @@
         "fetchdata",
         "Firestore",
         "getdata",
+        "Getx",
         "imageurl",
         "imgpath",
+        "mname",
         "newimgpath",
         "storageref",
         "whois"

@@ -5,7 +5,8 @@ import 'package:hospital_app/controllers/patient_details.dart';
 
 class CompanyScreen extends StatefulWidget {
   final bool isPatient;
-  const CompanyScreen({ required this.isPatient, super.key});
+  final bool isDoctor;
+  const CompanyScreen({ required this.isDoctor,  required this.isPatient, super.key});
 
   @override
   State<CompanyScreen> createState() => _CompanyScreenState();
@@ -39,6 +40,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
                   child: Text('Error: ${snapshot.error}',
                       style: TextStyle(color: Colors.white)));
             }
+            widget.isDoctor?print('Doctor',):print('Patient');
             List<DocumentSnapshot> document = snapshot.data!.docs;
             return ListView.builder(
                 itemCount: document.length,
