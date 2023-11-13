@@ -28,7 +28,7 @@ class _UploadDetailsState extends State<UploadDetails> {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 214, 205, 205),
+                color: Colors.white,
                 border: Border.all(color: Colors.black),
               ),
               height: MediaQuery.of(context).size.height * 0.7,
@@ -75,6 +75,9 @@ class _UploadDetailsState extends State<UploadDetails> {
                       if (downurl != null) {
                         if(widget.isPatient){
                           Update_Insurance.upload_image(widget.cardno, downurl, false);
+                          setState(() {
+                            imgpath=null;
+                          });
                         }
                        else{
                         Patient_Details.update_details(widget.cardno, downurl);

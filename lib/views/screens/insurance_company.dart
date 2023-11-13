@@ -16,7 +16,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Unapproved data'), backgroundColor: Color.fromARGB(255, 203, 47, 99),),
+      appBar: AppBar(title: const Text('Unapproved data'), backgroundColor: const Color.fromARGB(255, 143, 52, 45)),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -48,12 +48,12 @@ class _CompanyScreenState extends State<CompanyScreen> {
                   final item = document[index].data() as Map<String, dynamic>;
                   return Card(
                      margin: EdgeInsets.all(15.0),
-                    color: Color.fromARGB(255, 203, 47, 99),
+                    color: Colors.white,
                     child: Padding(
                       padding: const EdgeInsets.all(15.0),
                       child: Column(
                         children: [
-                          Row(
+                        widget.isDoctor?Row(
                             children: [
                               const Text(
                                 'Patient\'s Card no:  ',
@@ -64,7 +64,7 @@ class _CompanyScreenState extends State<CompanyScreen> {
                               Text(item['card_no'],
                                   style: TextStyle(fontSize: 20.0)),
                             ],
-                          ),
+                          ): Container(),
                           SizedBox(
                             height: 15.0,
                           ),
